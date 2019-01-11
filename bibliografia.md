@@ -13,3 +13,9 @@ Bibliografia do estudo sobre Blockchain
 5. [The Math Behind Bitcoin](https://www.coindesk.com/math-behind-bitcoin)
 
 6. [A Practical Introduction to Blockchain with Python](http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/)
+
+7. [Myth Busting: Can a blockchain save healthcare?](https://blog.andreacoravos.com/myth-busting-can-a-blockchain-save-healthcare-d398cdebf0c1?gi=c965f66252e5)
+
+8. [Simple Blockchain in Python WITH MINING!](https://www.youtube.com/watch?v=b81Ib_oYbFk)
+
+9. [howCode's simple Python Blockchain with MINING!](https://github.com/howCodeORG/Simple-Python-Blockchain)
