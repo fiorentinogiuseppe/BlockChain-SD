@@ -19,3 +19,7 @@ Bibliografia do estudo sobre Blockchain
 8. [Simple Blockchain in Python WITH MINING!](https://www.youtube.com/watch?v=b81Ib_oYbFk)
 
 9. [howCode's simple Python Blockchain with MINING!](https://github.com/howCodeORG/Simple-Python-Blockchain)
+
+10. [Python Tutorial for Beginners - Learn Python by Building a Blockchain & Cryptocurrency](https://www.youtube.com/watch?v=KARxDX5DTgY)
+
+11. [Building A Simple Blockchain Data Structure With Python](https://medium.com/coinmonks/building-a-simple-blockchain-data-structure-with-python-e7ebd448647a)
