@@ -11,3 +11,5 @@ Bibliografia do estudo sobre Blockchain
 4. [The Blockchain Party](https://blogs.ams.org/blogonmathblogs/2017/12/11/the-blockchain-party/)
 
 5. [The Math Behind Bitcoin](https://www.coindesk.com/math-behind-bitcoin)
+
+6. [A Practical Introduction to Blockchain with Python](http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/)
