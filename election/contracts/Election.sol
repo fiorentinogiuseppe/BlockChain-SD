@@ -1,19 +1,29 @@
+//Solidity é uma linguagem de programação orientada a contratos para escrever contratos inteligentes. 
+//Ele é usado para implementar contratos inteligentes em várias plataformas blockchain
+//Versão do solidity
 pragma solidity ^0.5.0;
 
+// Declaracao do smart contract
 contract Election {
-    // Model a Candidate
+    // Struct Candidate que ira guardar info dos candidatos
+    // Declaramos uma variável de estado que armazenará o valor do nome do candidato. 
+    // Variáveis de estado nos permitem gravar dados no blockchain.
     struct Candidate {
-        uint id;
+        //Maneira de armazenar vários candidatos e armazenar vários atributos sobre cada candidato
+        uint id; //unsigned int
         string name;
-        uint voteCount;
+        uint voteCount; //unsigned int
     }
 
     // Store accounts that have voted
     mapping(address => bool) public voters;
-    // Store Candidates
-    // Fetch Candidate
-    mapping(uint => Candidate) public candidates;
-    // Store Candidates Count
+
+    //Local para salvar os candidatos
+    //mapping em Solidity é como um array associativo ou um hash, que associa pares de valores-chave.
+    mapping(uint => Candidate) public candidates; // A chave um unsigned inteiro e o valor é do tipo 
+                                                  // structure Candidate
+    
+    // Controla quantos candidatos existem na eleição, pois em Solidity, não há como determinar o tamanho de um // mapeamento e também não é possível iterar sobre ele.
     uint public candidatesCount;
 
     // voted event
@@ -21,14 +31,31 @@ contract Election {
         uint indexed _candidateId
     );
 
+    //criamos uma função de construtor que será chamada sempre que implementarmos o contrato 
+    //inteligente no blockchain. É aqui que definiremos o valor da variável de estado candidato que será 
+    // armazenada no blockchain na migração.
+
     constructor () public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+        addCandidate("TAOQUEI");
+        addCandidate("SPC");
+        addCandidate("LULALIVRE");
+        addCandidate("VAI PLANETA");
+        addCandidate("URSAL");
+        addCandidate("SLIME");
     }
 
+    // Função para adicionar candidatos ao mapeamento
+    // Observe que a visibilidade dessa função é privada porque queremos chamá-la apenas dentro do contrato.
     function addCandidate (string memory _name) private {
+        //incrementamos o contador de candidatos para denotar que um novo candidato foi adicionado. 
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        //Atualizamos o mapeamento com uma nova struct Candidate, usando a contagem atual de candidatos como a 
+        //chave. 
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0); //Essa struct Candidate é 
+                                                                            //inicializada com o ID de candidato 
+                                                                            //da contagem de candidatos atual, o 
+                                                                            //nome do argumento de função e a 
+                                                                            //contagem inicial de votos para 0. 
     }
 
     function vote (uint _candidateId) public {

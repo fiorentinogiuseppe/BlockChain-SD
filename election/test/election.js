@@ -1,16 +1,24 @@
+//Mesma ideia do arquivo de migração
 var Election = artifacts.require("./Election.sol");
+
+//função para todos os nossos testes 
+// Essa função de retorno de chamada fornece uma variável "accounts" que representa todas as contas em nosso 
+// blockchain, fornecidas pela Ganache.
 
 contract("Election", function(accounts) {
   var electionInstance;
 
+  //Verifica se o contrato foi inicializado com o número correto de candidatos, verificando se a contagem
   it("initializes with two candidates", function() {
     return Election.deployed().then(function(instance) {
       return instance.candidatesCount();
     }).then(function(count) {
-      assert.equal(count, 2);
+      assert.equal(count, 6);
     });
   });
 
+  //Inspeciona os valores de cada candidato na eleição,
+  //garantindo que cada candidato tenha o ID, o nome e a contagem de votos corretos.
   it("it initializes the candidates with the correct values", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -24,6 +32,26 @@ contract("Election", function(accounts) {
       assert.equal(candidate[0], 2, "contains the correct id");
       assert.equal(candidate[1], "Candidate 2", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
+    }).then(function(candidate) {
+      assert.equal(candidate[0], 3, "contains the correct id");
+      assert.equal(candidate[1], "Candidate 3", "contains the correct name");
+      assert.equal(candidate[2], 0, "contains the correct votes count");
+      return electionInstance.candidates(3);
+    }).then(function(candidate) {
+      assert.equal(candidate[0], 4, "contains the correct id");
+      assert.equal(candidate[1], "Candidate 4", "contains the correct name");
+      assert.equal(candidate[2], 0, "contains the correct votes count");
+      return electionInstance.candidates(4);
+    }).then(function(candidate) {
+      assert.equal(candidate[0], 5, "contains the correct id");
+      assert.equal(candidate[1], "Candidate 5", "contains the correct name");
+      assert.equal(candidate[2], 0, "contains the correct votes count");
+      return electionInstance.candidates(5);
+    }).then(function(candidate) {
+      assert.equal(candidate[0], 6, "contains the correct id");
+      assert.equal(candidate[1], "Candidate 6", "contains the correct name");
+      assert.equal(candidate[2], 0, "contains the correct votes count");
+      return electionInstance.candidates(6);
     });
   });
 
