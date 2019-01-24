@@ -9,7 +9,7 @@ contract("Election", function(accounts) {
   var electionInstance;
 
   //Verifica se o contrato foi inicializado com o número correto de candidatos, verificando se a contagem
-  it("initializes with two candidates", function() {
+  it("initializes with 6 candidates", function() {
     return Election.deployed().then(function(instance) {
       return instance.candidatesCount();
     }).then(function(count) {
@@ -25,36 +25,38 @@ contract("Election", function(accounts) {
       return electionInstance.candidates(1);
     }).then(function(candidate) {
       assert.equal(candidate[0], 1, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 1", "contains the correct name");
+      assert.equal(candidate[1], "TAOQUEI", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
       return electionInstance.candidates(2);
     }).then(function(candidate) {
       assert.equal(candidate[0], 2, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 2", "contains the correct name");
+      assert.equal(candidate[1], "SPC", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
     }).then(function(candidate) {
       assert.equal(candidate[0], 3, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 3", "contains the correct name");
+      assert.equal(candidate[1], "LULALIVRE", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
       return electionInstance.candidates(3);
     }).then(function(candidate) {
       assert.equal(candidate[0], 4, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 4", "contains the correct name");
+      assert.equal(candidate[1], "VAI PLANETA", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
       return electionInstance.candidates(4);
     }).then(function(candidate) {
       assert.equal(candidate[0], 5, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 5", "contains the correct name");
+      assert.equal(candidate[1], "URSAL", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
       return electionInstance.candidates(5);
     }).then(function(candidate) {
       assert.equal(candidate[0], 6, "contains the correct id");
-      assert.equal(candidate[1], "Candidate 6", "contains the correct name");
+      assert.equal(candidate[1], "SLIME", "contains the correct name");
       assert.equal(candidate[2], 0, "contains the correct votes count");
       return electionInstance.candidates(6);
     });
   });
 
+  //Testa se a função incrementa a contagem de votos do candidato.
+  //Testa se o eleitor é adicionado ao mapeamento sempre que ele votar.
   it("allows a voter to cast a vote", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -74,6 +76,7 @@ contract("Election", function(accounts) {
     })
   });
 
+  //Testes para as necessidades de funções
   it("throws an exception for invalid candiates", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -88,9 +91,25 @@ contract("Election", function(accounts) {
     }).then(function(candidate2) {
       var voteCount = candidate2[2];
       assert.equal(voteCount, 0, "candidate 2 did not receive any votes");
+    }).then(function(candidate3) {
+      var voteCount = candidate3[2];
+      assert.equal(voteCount, 1, "candidate 3 did not receive any votes");
+      return electionInstance.candidates(3);
+    }).then(function(candidate4) {
+      var voteCount = candidate4[2];
+      assert.equal(voteCount, 1, "candidate 4 did not receive any votes");
+      return electionInstance.candidates(4);
+    }).then(function(candidate5) {
+      var voteCount = candidate5[2];
+      assert.equal(voteCount, 1, "candidate 5 did not receive any votes");
+      return electionInstance.candidates(5);
+    }).then(function(candidate6) {
+      var voteCount = candidate6[2];
+      assert.equal(voteCount, 1, "candidate 6 did not receive any votes");
+      return electionInstance.candidates(6);
     });
   });
-
+  //Teste para garantir que evitemos o voto duplo
   it("throws an exception for double voting", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -112,6 +131,18 @@ contract("Election", function(accounts) {
     }).then(function(candidate2) {
       var voteCount = candidate2[2];
       assert.equal(voteCount, 1, "candidate 2 did not receive any votes");
+    }).then(function(candidate3) {
+      var voteCount = candidate3[2];
+      assert.equal(voteCount, 1, "candidate 3 did not receive any votes");
+    }).then(function(candidate4) {
+      var voteCount = candidate4[2];
+      assert.equal(voteCount, 1, "candidate 4 did not receive any votes");
+    }).then(function(candidate5) {
+      var voteCount = candidate5[2];
+      assert.equal(voteCount, 1, "candidate 5 did not receive any votes");
+    }).then(function(candidate6) {
+      var voteCount = candidate6[2];
+      assert.equal(voteCount, 1, "candidate 6 did not receive any votes");
     });
   });
 });

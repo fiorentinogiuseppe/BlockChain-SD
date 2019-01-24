@@ -15,7 +15,9 @@ contract Election {
         uint voteCount; //unsigned int
     }
 
-    // Store accounts that have voted
+    // Capacidade de votar na eleição. 
+    // Definido um mapeamento de "eleitores" para o contrato inteligente para acompanhar 
+    //as contas que votaram na eleição 
     mapping(address => bool) public voters;
 
     //Local para salvar os candidatos
@@ -23,10 +25,11 @@ contract Election {
     mapping(uint => Candidate) public candidates; // A chave um unsigned inteiro e o valor é do tipo 
                                                   // structure Candidate
     
-    // Controla quantos candidatos existem na eleição, pois em Solidity, não há como determinar o tamanho de um // mapeamento e também não é possível iterar sobre ele.
+    // Controla quantos candidatos existem na eleição, pois em Solidity, não há como determinar o tamanho de um 
+    // mapeamento e também não é possível iterar sobre ele.
     uint public candidatesCount;
 
-    // voted event
+    // evento voted
     event votedEvent (
         uint indexed _candidateId
     );
@@ -57,21 +60,26 @@ contract Election {
                                                                             //nome do argumento de função e a 
                                                                             //contagem inicial de votos para 0. 
     }
-
+    //Função para votar
+    //Aumenta a contagem de votos do candidato lendo a struct Candidate do mapeamento "candidates" 
+    //e aumentando o "voteCount" em 1.
+    //Recebe um unint com o id do candidato
     function vote (uint _candidateId) public {
-        // require that they haven't voted before
+	//Implementa instruções requer que parará a execução se as condições não forem atendidas. Em seguida, . 
+        // exige que o eleitor não tenha votado antes.
         require(!voters[msg.sender]);
 
-        // require a valid candidate
+        // requer que o ID do candidato seja válido
+	//O ID do candidato deve ser maior que zero e menor ou igual à contagem total de candidatos.
         require(_candidateId > 0 && _candidateId <= candidatesCount);
 
-        // record that voter has voted
+        // Indica que foi votado
         voters[msg.sender] = true;
 
-        // update candidate vote Count
+        // Atualiza o numero de votos
         candidates[_candidateId].voteCount ++;
 
-        // trigger voted event
+        // trigger para o evento voted
         emit votedEvent(_candidateId);
     }
 }
